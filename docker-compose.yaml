@@ -1,0 +1,9 @@
+services:
+  server:
+    build: .
+    container_name: game-server
+    restart: unless-stopped
+    ports:
+      - "50051:50051"
+    volumes:
+      - ./data:/data # здесь лежит game.db, рейтинг не пропадает при перезапуске

@@ -1,0 +1,5 @@
+.git
+*.exe
+game.db
+data
+assets

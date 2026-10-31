@@ -1,0 +1,36 @@
+syntax = "proto3";
+
+package game;
+
+option go_package = "./;gamepb";
+
+service Leaderboard {
+  // Отправить результат игры. Сервер хранит лучший счёт игрока.
+  rpc SubmitScore(SubmitScoreRequest) returns (SubmitScoreResponse);
+  // Получить таблицу лидеров.
+  rpc TopScores(TopScoresRequest) returns (TopScoresResponse);
+}
+
+message SubmitScoreRequest {
+  string player = 1;
+  int32 score = 2;
+}
+
+message SubmitScoreResponse {
+  int32 rank = 1; // место игрока в рейтинге
+  int32 best = 2; // его лучший счёт
+}
+
+message TopScoresRequest {
+  int32 limit = 1; // сколько строк вернуть (по умолчанию 10)
+}
+
+message ScoreEntry {
+  string player = 1;
+  int32 score = 2;
+  int64 updated_at = 3; // unix-время последнего рекорда
+}
+
+message TopScoresResponse {
+  repeated ScoreEntry entries = 1;
+}
